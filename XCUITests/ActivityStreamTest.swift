@@ -83,8 +83,8 @@ class ActivityStreamTest: BaseTestCase {
 
     func testTopSitesRemoveAllDefaultTopSitesAddNewOne() {
         // Remove all default Top Sites
-        for i in allDefaultTopSites {
-            TopSiteCellgroup.cells[i].press(forDuration: 1)
+        for element in allDefaultTopSites {
+            TopSiteCellgroup.cells[element].press(forDuration: 1)
             selectOptionFromContextMenu(option: "Remove")
         }
 
@@ -148,12 +148,12 @@ class ActivityStreamTest: BaseTestCase {
 
         // Remove it
         let topSiteCells = TopSiteCellgroup.cells
-        topSiteCells[allDefaultTopSites[0]].press(forDuration: 1)
+        topSiteCells["facebook"].press(forDuration: 1)
         selectOptionFromContextMenu(option: "Remove")
 
         // Check top site in first cell now
         let topSiteFirstCellAfter = app.collectionViews.cells.collectionViews.cells.element(boundBy: 0).label
-        XCTAssertTrue(topSiteFirstCellAfter == allDefaultTopSites[1])
+        XCTAssertTrue(topSiteFirstCellAfter == topSiteCells["youtube"].label)
     }
 
     func testTopSitesOpenInNewTab() {
@@ -236,6 +236,7 @@ class ActivityStreamTest: BaseTestCase {
 
         // Check that it appears under Bookmarks menu
         navigator.goto(HomePanel_Bookmarks)
+        waitforExistence(app.tables["Bookmarks List"])
         XCTAssertTrue(app.tables["Bookmarks List"].staticTexts[defaultTopSite["bookmarkLabel"]!].exists)
 
         // Check that longtapping on the TopSite gives the option to remove it
