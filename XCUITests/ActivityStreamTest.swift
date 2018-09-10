@@ -147,13 +147,13 @@ class ActivityStreamTest: BaseTestCase {
         XCTAssertTrue(topSiteSecondCell == allDefaultTopSites[1])
 
         // Remove it
-        let topSiteCells = TopSiteCellgroup.cells
-        topSiteCells["facebook"].press(forDuration: 1)
+        app.cells["facebook"].press(forDuration: 1)
         selectOptionFromContextMenu(option: "Remove")
 
         // Check top site in first cell now
+        let topSiteCells = TopSiteCellgroup.cells
         let topSiteFirstCellAfter = app.collectionViews.cells.collectionViews.cells.element(boundBy: 0).label
-        XCTAssertTrue(topSiteFirstCellAfter == topSiteCells["youtube"].label)
+        XCTAssertTrue(topSiteFirstCellAfter == topSiteCells["youtube"].label, "First top site does not match")
     }
 
     func testTopSitesOpenInNewTab() {
