@@ -83,6 +83,7 @@ class ActivityStreamTest: BaseTestCase {
 
     func testTopSitesRemoveAllDefaultTopSitesAddNewOne() {
         // Remove all default Top Sites
+        navigator.goto(HomePanel_TopSites)
         waitforExistence(app.cells["facebook"])
         for element in allDefaultTopSites {
             TopSiteCellgroup.cells[element].press(forDuration: 1)
@@ -98,12 +99,10 @@ class ActivityStreamTest: BaseTestCase {
         app.textFields["address"].typeText(newTopSite["url"]!)
         app.textFields["address"].typeText("\r")
         waitUntilPageLoad()
+        navigator.nowAt(BrowserTab)
+        navigator.goto(BrowserTabMenu)
+        navigator.goto(HomePanel_TopSites)
 
-        if iPad() {
-            app.buttons["URLBarView.backButton"].tap()
-        } else {
-            app.buttons["TabToolbar.backButton"].tap()
-        }
         waitforExistence(TopSiteCellgroup.cells[newTopSite["topSiteLabel"]!])
         checkNumberOfExpectedTopSites(numberOfExpectedTopSites: 1)
     }
