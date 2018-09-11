@@ -147,6 +147,7 @@ class ActivityStreamTest: BaseTestCase {
         XCTAssertTrue(topSiteSecondCell == allDefaultTopSites[1])
 
         // Remove it
+        waitforExistence(app.cells["facebook"])
         app.cells["facebook"].press(forDuration: 1)
         selectOptionFromContextMenu(option: "Remove")
 
